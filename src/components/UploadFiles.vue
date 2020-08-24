@@ -22,8 +22,11 @@
         </el-form-item>
         <el-form-item label="资料类型" prop="type">
           <el-select v-model="ruleForm.type" placeholder="请选择资料类型">
-            <el-option label="考研" value="shanghai"></el-option>
-            <el-option label="考试" value="beijing"></el-option>
+            <el-option label="考研" value="考研"></el-option>
+            <el-option label="考试" value="考试"></el-option>
+            <el-option label="四六级" value="四六级"></el-option>
+            <el-option label="求职" value="求职"></el-option>
+            <el-option label="其他" value="其他"></el-option>
           </el-select>
         </el-form-item>
 
@@ -68,6 +71,11 @@ name: "UploadFiles",
     fileSuccess(response, file){
 this.ruleForm.fileName = file.name;
 this.ruleForm.cloudUrl = response;
+      this.$message({
+        showClose: true,
+        message: '恭喜你上传文件成功',
+        type: 'success'
+      });
     },
     //文件上传
     submitUpload() {

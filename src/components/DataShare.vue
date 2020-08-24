@@ -8,7 +8,7 @@
               <h4>资料库由个人用户上传、是可共享的、统一管理的大量存储文件的仓库。学生党所需学习，考试，考研资料这里全都有。</h4>
             </div>
             <router-link to="/dataShare/fileShow">
-              <el-button type="primary" style="margin-top: 2px" round>资料库</el-button>
+              <el-button type="primary" style="margin-top: 2px" round >资料库</el-button>
             </router-link>
           </div>
           <div class="banner2">
@@ -24,7 +24,6 @@
         </div>
 
       </el-main>
-      <el-footer>Footer</el-footer>
     </el-container>
   </div>
 </template>
@@ -33,11 +32,12 @@
 export default {
   name: "DataShare"
 }
+
 </script>
 
 <style scoped>
 .el-main {
-  height: 700px;
+  height: 645px;
   background-image: url("/static/images/back.png");
 }
 .el-footer {
