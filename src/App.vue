@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-menu router class="el-menu-demo"  mode="horizontal">
-      <a class="logo-box" ><span>云打印</span> </a>
+      <a class="logo-box" ><span>云共享</span> </a>
       <el-menu-item index="/index">首页</el-menu-item>
       <el-menu-item index="/dataShare"> 资料分享</el-menu-item>
       <el-menu-item index="/center">个人中心</el-menu-item>
