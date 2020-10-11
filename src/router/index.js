@@ -6,6 +6,7 @@ import Index from "../components/Index";
 import Register from "../components/Register";
 import UploadFiles from "../components/UploadFiles";
 import FileShow from "../components/FileShow";
+import Login from "../components/Login";
 
 Vue.use(Router)
 
@@ -33,6 +34,9 @@ export default new Router({
     },{
       path: '/dataShare/fileShow',
       component:FileShow
+    },{
+    path: '/login',
+      component: Login
     }
 
   ]
