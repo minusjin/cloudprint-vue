@@ -11,7 +11,25 @@
 
 <script>
 export default {
-  name: "Container"
+  name: "Container",
+  methods:{
+    center(){
+      if (this.$cookies.get("cookieLogin")=="true"){
+
+      }else {
+        this.$router.push("/login")
+        this.$message({
+          showClose: true,
+          message: "无权限请先登录",
+          type: 'error'
+        });
+      }
+    }
+  },
+  created() {
+    //初始化加载数据
+    this.center();
+  }
 }
 </script>
 

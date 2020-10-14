@@ -23,7 +23,7 @@
   </div>
   <div class="contents">
 
-      <div v-for="item in tableData"  class="table-box">
+      <div v-for="item in tableData"  class="table-box" >
 
         <el-tag style="margin: 5px 0 0 5px">{{ item.type }}</el-tag>
         <span>{{item.name}}</span>
@@ -33,7 +33,7 @@
         <h4 style="margin-left: 20px">{{item.description}}</h4>
         <div class="button-box" >
           <el-button type="primary" plain size="small">查看详情</el-button>
-          <el-button type="success" plain size="small">下载文件</el-button>
+          <el-button type="success" plain size="small" @click="download(item.id)" >下载文件</el-button>
         </div>
 
       </div>
@@ -65,7 +65,9 @@ export default {
         createTime: '',
         name: '',
         description: '',
-        type: ''
+        type: '',
+        cloudUrl:'',
+        id:''
       }],
       total:0
 
@@ -98,6 +100,7 @@ export default {
       fomdata.append('size',this.formInline.size)
       fomdata.append('pageNow',this.formInline.pageNow)
       this.$http.post("http://localhost:8082/sysfile/list",fomdata).then(res=>{
+        console.log(res.data)
         this.tableData = res.data;
 
       })
@@ -110,7 +113,17 @@ export default {
       this.$http.post("http://localhost:8082/sysfile/getTotal",fomdata).then(res=>{
         this.total = res.data
       })
+    },
+    download(event){
+      let fomdata =new FormData();
+      fomdata.append('fileId',event)
+      this.$http.post("http://localhost:8082/upload/download",fomdata).then(res=>{
+        window.open(res.data)
+      })
+
+      console.log(event)
     }
+
 
   },
   created() {

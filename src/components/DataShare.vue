@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div class="main-box">
     <el-container>
       <el-main>
         <div class="box">
@@ -15,11 +15,14 @@
             <div class="box-card">
               <h4 style="text-align: center">分享你的资料</h4>
             </div>
-            <router-link to="/dataShare/uploadFiles">
-              <el-button type="primary" style="margin-left: 200px" round >分享文件</el-button>
-            </router-link>
+              <el-button type="primary" style="margin-left: 42%" round @click="file">分享文件</el-button>
         </div>
-
+          <div class="banner2">
+            <div class="box-card">
+              <h4 style="text-align: center">分享你的资料</h4>
+            </div>
+            <el-button type="primary" style="margin-left: 42%" round @click="file">分享文件</el-button>
+          </div>
 
         </div>
 
@@ -30,25 +33,33 @@
 
 <script>
 export default {
-  name: "DataShare"
+  name: "DataShare",
+  methods:{
+    file(){
+      if (this.$cookies.get("cookieLogin")=="true"){
+        this.$router.push("/dataShare/uploadFiles")
+      }else {
+        this.$router.push("/login")
+        this.$message({
+          showClose: true,
+          message: "无权限请先登录",
+          type: 'error'
+        });
+      }
+    }
+  }
 }
 
 </script>
 
 <style scoped>
-.el-main {
-  height: 645px;
+.main-box{
+  height: 100%;
   background-image: url("/static/images/back.png");
-}
-.el-footer {
-  background-color: #B3C0D1;
-  color: #333;
-  text-align: center;
-  height: 65px;
+
 }
 .box{
-  padding-left: 30%;
-  padding-top: 50px;
+  padding: 30px 0 30px 30%;
 }
 .banner1{
   width: 50%;

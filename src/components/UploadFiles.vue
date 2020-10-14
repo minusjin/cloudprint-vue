@@ -54,6 +54,7 @@ name: "UploadFiles",
       description: '',
       fileName:'',
       cloudUrl:'',
+
     },
     rules: {
       name: [
@@ -83,8 +84,14 @@ this.ruleForm.cloudUrl = response;
     },
     //表单上传
     submitForm(formName) {
-
-  this.$http.post("http://localhost:8082/sysfile/saveFile",this.ruleForm).then(res=>{
+      let fomdata =new FormData();
+      fomdata.append('name',this.ruleForm.name)
+      fomdata.append('type',this.ruleForm.type)
+      fomdata.append('description',this.ruleForm.description)
+      fomdata.append('fileName',this.ruleForm.fileName)
+      fomdata.append('cloudUrl',this.ruleForm.cloudUrl)
+      fomdata.append('userId',this.$cookies.get("cookieUsername"))
+  this.$http.post("http://localhost:8082/sysfile/saveFile",fomdata).then(res=>{
     console.log(res.data.msg);
     if (res.data.code==200){
       this.$message({
@@ -94,6 +101,7 @@ this.ruleForm.cloudUrl = response;
       });
       //清空表单
       this.ruleForm = {}
+
     }else {
       this.$message({
         showClose: true,
