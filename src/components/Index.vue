@@ -28,7 +28,7 @@
       <el-col :span="6" style="margin-left: 100px">
         <el-card shadow="always" >
           <img src="/static/images/show2.jfif" style="border-radius: 4px;width: 56px;height: 56px;padding-left: 40%" >
-          <p class="chosen-title">资料分享</p>
+          <p class="chosen-title">资料共享</p>
           <div class="chosen-desc">哈哈是一段与口语课有大幅度服纷纷介绍啊，测试一下了</div>
 
         </el-card>
@@ -36,7 +36,7 @@
       <el-col :span="6" style="margin-left: 100px">
         <el-card shadow="always" >
           <img src="/static/images/show3.jfif" style="border-radius: 4px;width: 56px;height: 56px;padding-left: 40%" >
-          <p class="chosen-title">功能待定</p>
+          <p class="chosen-title">图书共享</p>
           <div class="chosen-desc">哈哈是一段与口语课有大幅度服纷纷介绍啊，测试一下了</div>
 
         </el-card>

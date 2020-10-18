@@ -5,7 +5,8 @@
     <el-menu router class="el-menu-demo"  mode="horizontal">
       <a class="logo-box" ><span>云共享</span> </a>
       <el-menu-item index="/index">首页</el-menu-item>
-      <el-menu-item index="/dataShare"> 资料分享</el-menu-item>
+      <el-menu-item index="/dataShare"> 共享资料</el-menu-item>
+      <el-menu-item index="/bookShow">共享书圈</el-menu-item>
       <el-menu-item index="/center">个人中心</el-menu-item>
       <el-menu-item index="3">使用帮助</el-menu-item>
       <div class="login-box" >

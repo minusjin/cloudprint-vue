@@ -1,3 +1,4 @@
+<!--文件分享首页-->
 <template>
   <div class="main-box">
     <el-container>
@@ -17,12 +18,7 @@
             </div>
               <el-button type="primary" style="margin-left: 42%" round @click="file">分享文件</el-button>
         </div>
-          <div class="banner2">
-            <div class="box-card">
-              <h4 style="text-align: center">分享你的资料</h4>
-            </div>
-            <el-button type="primary" style="margin-left: 42%" round @click="file">分享文件</el-button>
-          </div>
+
 
         </div>
 

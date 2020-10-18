@@ -7,6 +7,9 @@ import Register from "../components/Register";
 import UploadFiles from "../components/UploadFiles";
 import FileShow from "../components/FileShow";
 import Login from "../components/Login";
+import BookShow from "../components/BookShow";
+import UploadBooks from "../components/UploadBooks";
+import BookShare from "../components/BookShare";
 
 Vue.use(Router)
 
@@ -37,7 +40,15 @@ export default new Router({
     },{
     path: '/login',
       component: Login
+    },{
+      path: '/bookShow',
+      component: BookShow
+    },{
+      path: '/bookShare',
+      component: BookShare
+    },{
+      path: '/uploadBooks',
+      component: UploadBooks
     }
-
   ]
 })

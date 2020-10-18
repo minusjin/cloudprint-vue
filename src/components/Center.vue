@@ -2,10 +2,10 @@
   <div>
 
     <el-container>
-      <el-header> <h1>Container</h1></el-header>
+      <el-aside width="200px">Aside</el-aside>
       <el-main>Main</el-main>
-      <el-footer>Footer</el-footer>
     </el-container>
+
   </div>
 </template>
 
