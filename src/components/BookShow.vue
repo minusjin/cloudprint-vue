@@ -1,26 +1,47 @@
 <!--图书展示首页-->
 <template>
 <div>
+  <div class="book-nav">
+    <div class="nav-search">
+      <form >
+        <fieldset>
+          <legend>搜索：</legend>
+          <label for="inp-query">
+          </label>
+          <div class="inp">
+            <input id="inp-query" name="search_text" size="22" maxlength="60" placeholder="输入书名搜索" v-model="formInline.bookName"  autocomplete="off">
+          </div>
+          <div class="inp-btn"><input type="submit" value="搜索" @click="getList"></div>
+        </fieldset>
+      </form>
+    </div>  </div>
   <div class="article">
-    <h1>书圈</h1>
-    <div class="table-box">
+
+    <div v-for="item in tableData" class="table-box">
       <div class="main-pic">
-        <img :src="imgSrc" style="max-width: 135px;max-height: 200px;">
+        <img :src=item.bookImg style="max-width: 135px;max-height: 200px;">
       </div>
-      <div style="padding: 15px 0 0 5px">
-        <span>书名</span>
+      <div style="padding: 15px 0 0 20%">
+        <span>《{{ item.bookName}}》</span>
         <el-divider direction="vertical"></el-divider>
-        <span>作者</span>
-        <h5 style="margin:10px 20px 10px 20px">《有理想就有疼痛:中国当代文化名人访谈录》是一份关于当代中国文化的最真实底稿，收录了高晓春与白先勇、冯骥才、余华、莫言、余秋雨、陈忠实等20位当代中国文化大家的对话。通过近距离的访谈，展现了这些文化大家多彩的内心世界，也阐释了他们对生命、艺术、财富及文化的理解。</h5>
+        <span>作者:{{ item.author }}</span>
+        <h5 style="margin:10px 20px 10px 20px">{{ item.introduction}}</h5>
       </div>
-      <div ><span >推荐分数</span></div>
+      <div ><span style="
+    margin-left: 2%;
+">推荐分数:{{item.recommend}}星</span></div>
       <div class="button-box" >
-
-
         <el-button type="primary" plain size="small">查看详情</el-button>
         <el-button type="success" plain size="small" @click="" >借阅此书</el-button>
       </div>
     </div>
+
+    <el-pagination
+      background layout="prev, pager, next"
+      :total="total" :page-size="formInline.size" :current-page="formInline.pageNow"
+      @current-change="findPage"
+      style="margin-left: 20%">
+    </el-pagination>
   </div>
 
   <div class="aside">
@@ -39,66 +60,88 @@ export default {
 name: "BookShow",
   data() {
     return {
-      imgSrc:'http://api.jisuapi.com/isbn/upload/4d/148c513a7b887e.jpg'
+      formInline: {
+        bookName: '',
+        author: '',
+        size: 4,
+        pageNow: 1
+      },
+      imgSrc:"http://qi4mkzi4g.hn-bkt.clouddn.com/s33715398.jpg",
+      total:0,
+      tableData: [{
+        bookImg:'',
+        bookName: '',
+        author: '',
+        introduction: '',
+        recommend: '',
+        id:''
+      }],
+      search:'',
     };
   },
   methods:{
   uploadBook(){
     this.$router.push("/uploadBooks")
   },
-    //表单上传
-    submitForm(formName) {
+    //处理分页
+    findPage(page){
+      this.formInline.pageNow = page
+      this.getList();
+      this.getTotal();
+    },
+    //表单重置
+    resetForm(formInline) {
+      this.$refs[formInline].resetFields();
+    },
+    //获取列表
+    getList(){
       let fomdata =new FormData();
-      fomdata.append('name',this.ruleForm.name)
-      fomdata.append('type',this.ruleForm.type)
-      fomdata.append('description',this.ruleForm.description)
-      fomdata.append('fileName',this.ruleForm.fileName)
-      fomdata.append('cloudUrl',this.ruleForm.cloudUrl)
-      fomdata.append('userId',this.$cookies.get("cookieUsername"))
-      this.$http.post("http://localhost:8082/sysfile/saveFile",fomdata).then(res=>{
-        console.log(res.data.msg);
-        if (res.data.code==200){
-          this.$message({
-            showClose: true,
-            message: '恭喜你文件'+res.data.msg,
-            type: 'success'
-          });
-          //清空表单
-          this.ruleForm = {}
+      fomdata.append('bookName',this.formInline.bookName)
+      fomdata.append('author',this.formInline.author)
+      fomdata.append('size',this.formInline.size)
+      fomdata.append('pageNow',this.formInline.pageNow)
+      console.log(this.formInline.bookName)
+      this.$http.post("http://localhost:8082/sysbook/list",fomdata).then(res=>{
+        this.tableData = res.data;
 
-        }else {
-          this.$message({
-            showClose: true,
-            message: '出错了'+res.data.msg,
-            type: 'error'
-          });
-        }
       })
-
-
-    }, //重置
-    resetForm(ruleForm) {
-      this.$refs[ruleForm].resetFields();
-    }
-
-
-
+    },
+    //获取总数
+    getTotal(){
+      let fomdata =new FormData();
+      fomdata.append('size',this.formInline.size)
+      fomdata.append('pageNow',this.formInline.pageNow)
+      this.$http.post("http://localhost:8082/sysbook/getTotal",fomdata).then(res=>{
+        this.total = res.data
+      })
+    },
+  },
+  created() {
+    //初始化加载数据
+    this.getList();
+    this.getTotal();
   }
 
 }
 </script>
 
 <style scoped>
+.book-nav{
+  height: 80px;
+  margin: 0 10% 0 10%;
+  padding-top: 20px;
+  background-color: #F6F6F2;
+}
 .article{
   width: 675px;
   float: left;
-  padding: 20px 30px 0 10%;
+  padding: 0 30px 0 10%;
 }
 .aside{
   left: 712px;
   width: 300px;
   float: right;
-  padding:7% 10% 0 0;
+  padding:1% 10% 0 0;
 }
 
 .main-pic{
@@ -109,13 +152,13 @@ name: "BookShow",
   padding: 15px 0 0 10px;
 }
 .table-box{
-  height: 160px;
+  height: 200px;
   width: 800px;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
   margin: 10px;
   padding-bottom: 10px;
-  background-color: #F0F3F5;
+  background-color: #F6F6F2;
 }
 .button-box{
   margin-left: 70%;
@@ -131,5 +174,95 @@ name: "BookShow",
   font-size: 13px;
   text-align: center;
 }
+.nav-search {
+  margin-left: 145px;
+  overflow: visible !important;
+  position: relative;
+  zoom: 1;
+  padding: 10px 0 15px 0;
+}
+
+.nav-search fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  position: static;
+}
+.nav-search legend {
+  display: none;
+}
+fieldset legend {
+  color: #666;
+  padding: 0 5px;
+}
+.nav-search label {
+  position: absolute;
+  left: 11px;
+  top: 10px;
+  line-height: 30px;
+  cursor: text;
+  color: #bbb;
+  width: auto;
+}
+label {
+  vertical-align: middle;
+}
+
+.nav-search .inp {
+  background-image: url("/static/images/search.png");
+  float: left;
+  width: 470px;
+  height: 34px;
+  text-align: center;
+  margin-right: -3px;
+  cursor: text;
+}
+.nav-search .inp input {
+  width: 96%;
+  margin: 0;
+  text-align: left;
+  height: 30px;
+  padding-left: 10px;
+  outline: none;
+}
+.nav-search .inp-btn {
+  position: relative;
+  left: -1px;
+  width: 37px;
+  height: 34px;
+  zoom: 1;
+  overflow: hidden;
+}
+.nav-search .inp-btn input {
+  background: url("/static/images/search.png") no-repeat 0 -40px;
+  width: 100%;
+  height: 100%;
+  font-size: 0;
+  padding: 35px 0 0 0;
+  overflow: hidden;
+  color: transparent;
+  cursor: pointer;
+}
+input {
+  font-size: 12px;
+  margin-right: 3px;
+  vertical-align: middle;
+}
+input, button, textarea, select, optgroup, option {
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+}
+div {
+  display: block;
+}
+.nav-search input {
+  -webkit-appearance: none;
+  border: none;
+  background: transparent;
+}
+
+
 
 </style>

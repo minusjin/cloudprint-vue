@@ -62,14 +62,14 @@ export default {
         size: 4,
         pageNow: 1
       },
-      tableData: [{
+      tableData: {
         createTime: '',
         name: '',
         description: '',
         type: '',
         cloudUrl:'',
         id:''
-      }],
+      },
       total:0
 
 
