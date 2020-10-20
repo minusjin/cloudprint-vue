@@ -3,7 +3,7 @@
 <div>
   <div class="book-nav">
     <div class="nav-search">
-      <form >
+
         <fieldset>
           <legend>搜索：</legend>
           <label for="inp-query">
@@ -13,7 +13,7 @@
           </div>
           <div class="inp-btn"><input type="submit" value="搜索" @click="getList"></div>
         </fieldset>
-      </form>
+
     </div>  </div>
   <div class="article">
 
@@ -21,23 +21,26 @@
       <div class="main-pic">
         <img :src=item.bookImg style="max-width: 135px;max-height: 200px;">
       </div>
-      <div style="padding: 15px 0 0 20%">
-        <span>《{{ item.bookName}}》</span>
-        <el-divider direction="vertical"></el-divider>
+      <div style="padding: 20px 0 0 20%">
+        <span><strong>《{{ item.bookName}}》</strong></span>|
         <span>作者:{{ item.author }}</span>
-        <h5 style="margin:10px 20px 10px 20px">{{ item.introduction}}</h5>
+        <div style="height: 90px;">
+          <p style="margin:10px 20px 10px 10px;font-size: small"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ item.introduction}}</p>
+        </div>
       </div>
-      <div ><span style="
-    margin-left: 2%;
-">推荐分数:{{item.recommend}}星</span></div>
+    <div >
+      <span style="padding-left: 2.5%">推荐分数:{{item.recommend}}分</span>
+      </div>
+
+
       <div class="button-box" >
-        <el-button type="primary" plain size="small">查看详情</el-button>
-        <el-button type="success" plain size="small" @click="" >借阅此书</el-button>
+        <el-button type="success" round plain size="small" @click="bookDetail(item.id)" >查看详情</el-button>
       </div>
     </div>
 
     <el-pagination
-      background layout="prev, pager, next"
+      background
+      layout="prev, pager, next"
       :total="total" :page-size="formInline.size" :current-page="formInline.pageNow"
       @current-change="findPage"
       style="margin-left: 20%">
@@ -66,7 +69,7 @@ name: "BookShow",
         size: 4,
         pageNow: 1
       },
-      imgSrc:"http://qi4mkzi4g.hn-bkt.clouddn.com/s33715398.jpg",
+      value: '',
       total:0,
       tableData: [{
         bookImg:'',
@@ -89,10 +92,11 @@ name: "BookShow",
       this.getList();
       this.getTotal();
     },
-    //表单重置
-    resetForm(formInline) {
-      this.$refs[formInline].resetFields();
+    //跳转详情页
+    bookDetail(id){
+      this.$router.push({name: 'BookInfo',params:{id}})
     },
+
     //获取列表
     getList(){
       let fomdata =new FormData();
@@ -101,6 +105,7 @@ name: "BookShow",
       fomdata.append('size',this.formInline.size)
       fomdata.append('pageNow',this.formInline.pageNow)
       console.log(this.formInline.bookName)
+      this.getTotal();
       this.$http.post("http://localhost:8082/sysbook/list",fomdata).then(res=>{
         this.tableData = res.data;
 
@@ -119,7 +124,7 @@ name: "BookShow",
   created() {
     //初始化加载数据
     this.getList();
-    this.getTotal();
+
   }
 
 }
@@ -128,7 +133,7 @@ name: "BookShow",
 <style scoped>
 .book-nav{
   height: 80px;
-  margin: 0 10% 0 10%;
+  margin: 0 10% 0 10.5%;
   padding-top: 20px;
   background-color: #F6F6F2;
 }
@@ -149,10 +154,10 @@ name: "BookShow",
   text-align: center;
   max-width: 155px;
   overflow: hidden;
-  padding: 15px 0 0 10px;
+  padding: 1% 0 0 10px;
 }
 .table-box{
-  height: 200px;
+  height: 205px;
   width: 800px;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
@@ -161,7 +166,7 @@ name: "BookShow",
   background-color: #F6F6F2;
 }
 .button-box{
-  margin-left: 70%;
+  margin:0 0 0 70%;
 }
 .gray_ad {
   height: 80px;

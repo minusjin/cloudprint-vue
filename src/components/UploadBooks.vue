@@ -39,9 +39,9 @@
     </el-form-item>
     <el-form-item label="推荐指数" prop="recommend">
       <el-select v-model="ruleForm.recommend" placeholder="请选择推荐指数">
-        <el-option label="3星" value="3"></el-option>
-        <el-option label="6星" value="6"></el-option>
-        <el-option label="8星" value="8"></el-option>
+        <el-option label="3分" value="3"></el-option>
+        <el-option label="6分" value="6"></el-option>
+        <el-option label="8分" value="8"></el-option>
       </el-select>
     </el-form-item>
     <el-form-item label="取书地址" prop="pickupAddress">

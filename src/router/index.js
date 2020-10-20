@@ -9,7 +9,7 @@ import FileShow from "../components/FileShow";
 import Login from "../components/Login";
 import BookShow from "../components/BookShow";
 import UploadBooks from "../components/UploadBooks";
-import BookShare from "../components/BookShare";
+import BookDetail from "../components/BookDetail";
 
 Vue.use(Router)
 
@@ -44,8 +44,9 @@ export default new Router({
       path: '/bookShow',
       component: BookShow
     },{
-      path: '/bookShare',
-      component: BookShare
+      path: '/bookDetail/:id',
+      name: 'BookInfo',
+      component: BookDetail
     },{
       path: '/uploadBooks',
       component: UploadBooks
