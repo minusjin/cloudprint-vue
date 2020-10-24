@@ -53,7 +53,36 @@
 
 
     </div>
+    <div>
+      <el-button
+        type="success" round icon="el-icon-collection" @click="handleEdit"
+        >参与共享</el-button>
+    </div>
+
   </div >
+<!--参与共享框-->
+  <el-dialog :title="title" :visible.sync="editFormVisible" width="30%" @click='closeDialog("edit")'>
+    <el-form label-width="80px" ref="editForm" :model="editForm" >
+
+      <el-form-item label="取书备注" prop="rehearRemark">
+        <el-input size="small" type="textarea" v-model="editForm.borrowRemark" auto-complete="off" placeholder="请输入取书备注"></el-input>
+      </el-form-item>
+      <div class="block" style="padding-left: 2%">
+        <span class="demonstration">预计归还日期：</span>
+        <el-date-picker
+          size="small"
+          v-model="editForm.borrowTime"
+
+          type="date"
+          placeholder="选择日期">
+        </el-date-picker>
+      </div>
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button size="small" @click='closeDialog("edit")'>取消</el-button>
+      <el-button size="small" type="primary"  class="title" @click="bookShare('editForm')">借阅</el-button>
+    </div>
+  </el-dialog>
   <div class="aside">aside</div>
 
 
@@ -76,10 +105,17 @@ name: "BookShare",
       isbn: '',
       pickupAddress: '',
       contactWay : '',
+      id:'',
+      creatUser:'',
+      state:''
+    },
+    title: '借阅此书',
+    editFormVisible: false, //控制编辑页面显示与隐藏
 
-      id:''
-
-    }
+    editForm:{
+      borrowRemark:'',
+      borrowTime:'',
+    },
   }
 
   },
@@ -92,6 +128,45 @@ name: "BookShare",
         this.recommend = parseInt(res.data.recommend);
 
       })
+    },
+    handleEdit() {
+      if (this.bookInfo.state=="1"){
+
+        this.editFormVisible = true;
+      }else {
+        this.$message({
+          showClose: true,
+          message: '图书已借阅',
+          type: 'error'
+        });
+      }
+    },
+    closeDialog(dialog) {
+        this.editFormVisible = false
+    },
+    bookShare(){
+      let fomdata =new FormData();
+      fomdata.append('borrowUser',this.$cookies.get("cookieUsername"))
+      fomdata.append('bookId',this.bookInfo.id)
+      fomdata.append('bookUser',this.bookInfo.creatUser)
+      fomdata.append('remandTime',this.editForm.borrowTime)
+      fomdata.append('borrowRemark',this.editForm.borrowRemark)
+      console.log(this.bookInfo.state)
+      if (this.bookInfo.state=="1"){
+        this.$http.post("http://localhost:8082/borrowbook/saveBorrow",fomdata).then(res=>{
+          if (res.data.code==200){
+            this.$message({
+              showClose: true,
+              message: '恭喜你'+res.data.msg,
+              type: 'success'
+            });
+          }
+        })
+      }
+
+
+
+      console.log(this.editForm.borrowTime)
     }
   },
   created() {
