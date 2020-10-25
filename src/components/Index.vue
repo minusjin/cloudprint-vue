@@ -134,7 +134,8 @@ export default {
 }
 .el-carousel__item:nth-child(2n) {
   background-size: 100% 100%;
-  background-image:  url("https://img2.doubanio.com/img/files/file-1602559242-3.jpg") ;
+  background-image: url("/static/images/carousel02.png");
+
 }
 .el-carousel__item:nth-child(2n+1) {
   background-image: url("https://gw.alipayobjects.com/mdn/rms_c16aa5/afts/img/A*U62YRLc0RkUAAAAAAAAAAABkARQnAQ");

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Center from "../components/Center";
 import DataShare from "../components/DataShare";
 import Index from "../components/Index";
 import Register from "../components/Register";
@@ -10,7 +9,7 @@ import Login from "../components/Login";
 import BookShow from "../components/BookShow";
 import UploadBooks from "../components/UploadBooks";
 import BookDetail from "../components/BookDetail";
-
+import Centers from "../components/center/Centers";
 Vue.use(Router)
 
 export default new Router({
@@ -19,10 +18,7 @@ export default new Router({
       path: '/',
       redirect:'/index'
     },
-    {
-      path: '/center',
-      component:Center
-    },{
+   {
       path: '/dataShare',
       component:DataShare
     },{
@@ -50,6 +46,9 @@ export default new Router({
     },{
       path: '/uploadBooks',
       component: UploadBooks
+    },{
+      path: '/center/centers',
+      component: Centers
     }
   ]
 })
