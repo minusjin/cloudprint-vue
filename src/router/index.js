@@ -10,6 +10,10 @@ import BookShow from "../components/BookShow";
 import UploadBooks from "../components/UploadBooks";
 import BookDetail from "../components/BookDetail";
 import Centers from "../components/center/Centers";
+import Explain from "../components/Explain";
+import MyFile from "../components/center/MyFile";
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -49,6 +53,12 @@ export default new Router({
     },{
       path: '/center/centers',
       component: Centers
+    },{
+      path: '/explain',
+      component: Explain
+    },{
+      path: '/center/myFile',
+      component: MyFile
     }
   ]
 })

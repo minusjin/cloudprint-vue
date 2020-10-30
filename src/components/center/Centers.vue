@@ -8,7 +8,7 @@
 
       <el-tabs :tab-position="tabPosition" class="tabs-centers" >
         <el-tab-pane label="基本信息"><BasicInfo></BasicInfo></el-tab-pane>
-        <el-tab-pane label="我的文件">配置管理</el-tab-pane>
+        <el-tab-pane label="我的文件"><MyFile></MyFile></el-tab-pane>
         <el-tab-pane label="我的打印">角色管理</el-tab-pane>
         <el-tab-pane label="我的共享">通天塔高</el-tab-pane>
       </el-tabs>
@@ -18,9 +18,10 @@
 
 <script>
 import BasicInfo from "./BasicInfo";
+import MyFile from "./MyFile";
 export default {
   name: "Centers",
-  components: {BasicInfo},
+  components: {MyFile, BasicInfo},
   data() {
     return {
       tabPosition: 'left'
