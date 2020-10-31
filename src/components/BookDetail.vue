@@ -58,8 +58,67 @@
         type="success" round icon="el-icon-collection" @click="handleEdit"
         >参与共享</el-button>
     </div>
+    <div style="margin-bottom: 15px;position: relative;"><h2 style="font-size: 24px"><span>书友评论
+        </span>
+    </h2></div>
 
+    <textarea class="reply-text"  placeholder="写下你的评论..." v-model="input"></textarea>
+    <el-button style="margin: 8px 0 0 500px" type="success" size="small" icon="el-icon-edit" @click="saveComment(-1)" round>发布</el-button>
+    <div class="main-comment">
+      <div  v-for="item in comments">
+        <div class="comments" style="padding-left: 10px" v-show="commentState">
+
+          <img style="padding-bottom: 30px" width="40px" height="40px" :src=item.avatar>
+          <div style="display: inline-block ;height: auto;border-radius: 30px;padding: 10px 0 0 10px">
+            <div style="width: 400px;">
+              <a  >{{item.nickname}}</a>
+              <a style="font-size: 13px">{{ item.createTime }}</a>
+            </div>
+            <div style="margin: 10px 0 0 10px">{{ item.content }}</div>
+            <div style=""><el-button type="text" @click="reply(item)" >回复</el-button></div>
+          </div>
+        </div>
+        <div class="reply" v-show="showItemId === item.id" >
+          <textarea class="reply-area" :placeholder= placeholder v-model="replyInput"></textarea>
+          <div style="margin-top: 5px;padding-left: 250px">
+            <el-button type="success" size="small" @click="saveComment(item.id)"  round>发布</el-button>
+            <el-button type="info" size="small" style="background-color: #bbbbbb" @click="closeButton(1)" round>取消</el-button>
+          </div>
+        </div>
+        <!--子集评论-->
+        <div v-for="items in item.replyComments">
+          <div class="comment" v-show="item.replyComments!=''"  >
+            <div class="comment-main" style="margin-left: 70px;height: 100px;width: 510px;border-bottom: #d1dfe4 2px solid;">
+              <img style="padding-bottom: 30px;margin-left: 10px" width="40px" height="40px" :src=items.avatar>
+              <div style="display: inline-block ;height: auto;border-radius: 30px;padding: 10px 0 0 10px">
+                <div style="width: 400px;">
+                  <a>{{ items.nickname }}@{{items.parentNickname}}</a>
+                  <a style="font-size: 13px">{{ items.createTime }}</a>
+                </div>
+                <div style="margin: 10px 0 0 10px">{{items.content}}</div>
+                <div style=""><el-button type="text"  @click="replys(items)">回复</el-button></div>
+              </div>
+            </div>
+          </div>
+          <div class="reply" style="margin-left: 23%" v-show="showItemsId === items.id">
+            <textarea class="reply-area" :placeholder= placeholder v-model="replyInput"></textarea>
+
+
+            <div style="margin-top: 5px;padding-left: 250px">
+              <el-button type="success" size="small" @click="saveComment(items.id)" round>发布</el-button>
+
+              <el-button type="info" size="small" style="background-color: #bbbbbb" @click="closeButton(2)" round>取消</el-button>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
   </div >
+
+
+
 <!--参与共享框-->
   <el-dialog :title="title" :visible.sync="editFormVisible" width="30%" @click='closeDialog("edit")'>
     <el-form label-width="80px" ref="editForm" :model="editForm" >
@@ -116,6 +175,37 @@ name: "BookShare",
       borrowRemark:'',
       borrowTime:'',
     },
+    //评论
+    commentState:true,
+    //回复控件
+    showItemId:'',
+    showItemsId:'',
+    placeholder:'',
+    comments:{
+      id:'',
+      nickname:'',
+      email: '',
+      content:'',
+      avatar:'',
+      createTime:'',
+      parentCommentId:'',
+      replyComments:{
+        id:'',
+        nickname:'',
+        email: '',
+        content:'',
+        avatar:'',
+        createTime:'',
+        parentCommentId:'',
+        parentNickname:''
+      }
+    },
+    //回复的值
+    replyInput:'',
+    input:'',
+
+
+
   }
 
   },
@@ -163,14 +253,64 @@ name: "BookShare",
           }
         })
       }
-
-
-
       console.log(this.editForm.borrowTime)
-    }
+    },
+    //获取评论
+    getComment(){
+      let fomdata =new FormData();
+      fomdata.append('insertId',this.id)
+      this.$http.post("http://localhost:8082/comment/commentList",fomdata).then(res=>{
+        this.comments = res.data
+      })
+    },
+    //一级评论回复
+    reply(item){
+      this.showItemId = item.id;
+      this.placeholder ="@"+ item.nickname;
+    },
+    //二级评论回复
+    replys(items){
+      this.showItemsId = items.id;
+      this.placeholder ="@"+ items.nickname;
+    },
+    //保存评论
+    saveComment(value){
+      let fomdata =new FormData();
+      fomdata.append('userId',this.$cookies.get("cookieUserId"))
+      if (value==-1){
+        fomdata.append('content',this.input)
+      }else {
+        fomdata.append('content',this.replyInput)
+      }
+      fomdata.append('parentCommentId',value)
+      fomdata.append('insertId',this.id)
+      this.$http.post("http://localhost:8082/comment/saveComment",fomdata).then(res=>{
+        if (res.data.code==200){
+          this.getComment();
+          this.showItemId = 0;
+          this.showItemsId = 0
+          this.$message({
+            showClose: true,
+            message: '恭喜你'+res.data.msg,
+            type: 'success'
+          });
+        }
+      })
+    },
+    //关闭评论
+    closeButton(value){
+      if (value==1){
+        this.showItemId = 0
+      }
+      if (value==2){
+        this.showItemsId = 0
+      }
+
+},
   },
   created() {
   this.getBookInfo();
+  this.getComment();
   }
 }
 
@@ -227,5 +367,53 @@ h3{
   margin-top: 36px;
   margin-bottom: 20px;
 }
+.main-comment{
+  margin-top: 10px;
+}
+.comments{
+  height: 100px;
+  width: 600px;
+  border-bottom: #d1dfe4 2px solid;
+}
+.comment{
+  margin-left: 30px;
+  height: 100px;
+  width: 500px;
+}
+.comment-main{
 
+}
+.reply{
+  margin-left: 50px;
+  padding-top: 10px;
+  height: 90px;
+  width: 400px;
+  border-radius: 30px
+}
+.reply-text {
+  padding: 12px 16px;
+  width: 100%;
+  height: 80px;
+  font-size: 13px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  background-color: #fafafa;
+  resize: none;
+  display: inline-block;
+  vertical-align: top;
+  outline-style: none;
+}
+.reply-area{
+  padding: 12px 16px;
+  width: 400px;
+  height: 40px;
+  font-size: 13px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  background-color: #fafafa;
+  resize: none;
+  display: inline-block;
+  vertical-align: top;
+  outline-style: none;
+}
 </style>

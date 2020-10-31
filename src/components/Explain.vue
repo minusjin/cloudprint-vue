@@ -87,7 +87,7 @@ export default {
   methods:{
     //获取评论
     getLsit(){
-      this.$http.get("http://localhost:8082/comment/commentList").then(res=>{
+      this.$http.post("http://localhost:8082/comment/commentList").then(res=>{
         this.comments = res.data
       })
     },
