@@ -6,11 +6,11 @@
                  ref="upload"
                  :auto-upload="false"
                  drag
-                 action="http://localhost:8082/upload/file"
+                 action="http://localhost:8082/upload/uploadFile"
                  multiple>
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-        <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+
       </el-upload>
       <el-button style="margin:10px 0 0 260px;" size="small" type="primary" icon="el-icon-upload"  @click="submitUpload">上传文件</el-button>
     </div>
@@ -24,7 +24,6 @@
           <el-select v-model="ruleForm.type" placeholder="请选择资料类型">
             <el-option label="考研" value="考研"></el-option>
             <el-option label="考试" value="考试"></el-option>
-            <el-option label="四六级" value="四六级"></el-option>
             <el-option label="求职" value="求职"></el-option>
             <el-option label="其他" value="其他"></el-option>
           </el-select>

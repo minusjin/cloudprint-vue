@@ -16,8 +16,8 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit('formInline')">查询</el-button>
-        <el-button @click="resetForm('formInline')">重置</el-button>
+        <el-button type="primary" @click="onSubmit('formInline')" round>查询</el-button>
+        <el-button @click="resetForm('formInline')" round>重置</el-button>
 
       </el-form-item>
     </el-form>
@@ -33,8 +33,8 @@
 
         <h4 style="margin-left: 20px">{{item.description}}</h4>
         <div class="button-box" >
-          <el-button type="primary" plain size="small">查看详情</el-button>
-          <el-button type="success" plain size="small" @click="download(item.id)" >下载文件</el-button>
+          <el-button type="primary" plain size="small" round>查看详情</el-button>
+          <el-button type="success" plain size="small" @click="download(item.cloudUrl)"  round>下载文件</el-button>
         </div>
 
       </div>
@@ -68,7 +68,8 @@ export default {
         description: '',
         type: '',
         cloudUrl:'',
-        id:''
+        id:'',
+        fileName:''
       },
       total:0
 
@@ -116,11 +117,8 @@ export default {
       })
     },
     download(event){
-      let fomdata =new FormData();
-      fomdata.append('fileId',event)
-      this.$http.post("http://localhost:8082/upload/download",fomdata).then(res=>{
-        window.open(res.data)
-      })
+        window.open(event)
+
 
       console.log(event)
     }
@@ -136,6 +134,9 @@ export default {
 </script>
 
 <style scoped>
+.fileShow{
+
+}
 .select-box{
   margin: 20px 0 0 20%;
 }

@@ -50,9 +50,11 @@ export default {
 
 <style scoped>
 .main-box{
-  height: 100%;
   background-image: url("/static/images/back.png");
-
+  width:100%;
+  height:100%;
+  position:fixed;
+  background-size:100% 100%;
 }
 .box{
   padding: 30px 0 30px 30%;

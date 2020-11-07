@@ -8,7 +8,7 @@
   <div class="upload-button">
     <el-upload
       class="upload-demo"
-      action="http://localhost:8082/upload/file"
+      action="http://localhost:8082/upload/uploadFile"
       :on-preview="handlePreview"
       :on-remove="handleRemove"
       :on-success="fileSuccess"

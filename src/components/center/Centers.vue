@@ -1,11 +1,8 @@
+<!--个人中心配置-->
 <template>
   <div>
-
     <div class="nav"></div>
-
     <template>
-
-
       <el-tabs :tab-position="tabPosition" class="tabs-centers" >
         <el-tab-pane label="基本信息"><BasicInfo></BasicInfo></el-tab-pane>
         <el-tab-pane label="我的文件"><MyFile></MyFile></el-tab-pane>
@@ -55,7 +52,7 @@ export default {
   background-color: #F6F6F2;
 }
 .tabs-centers{
-  height: 600px;
+  height: 700px;
   padding: 1% 10% 0 10%;
 }
 
