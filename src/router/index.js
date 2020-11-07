@@ -12,6 +12,8 @@ import BookDetail from "../components/BookDetail";
 import Centers from "../components/center/Centers";
 import Explain from "../components/Explain";
 import MyFile from "../components/center/MyFile";
+import MyBorrow from "../components/center/share/MyBorrow";
+import MyBook from "../components/center/share/MyBook";
 
 
 Vue.use(Router)
@@ -59,6 +61,14 @@ export default new Router({
     },{
       path: '/center/myFile',
       component: MyFile
+    }
+    ,{
+      path: '/center/share/myBook',
+      component: MyBook
+    }
+    ,{
+      path: '/center/share/myBorrow',
+      component: MyBorrow
     }
   ]
 })

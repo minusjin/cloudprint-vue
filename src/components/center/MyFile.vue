@@ -57,11 +57,11 @@
       <template slot-scope="scope">
         <el-button
           size="mini"
-          @click="closeDialog(scope.$index, scope.row)">编辑</el-button>
+          @click="handleEdit(scope.row)">编辑</el-button>
         <el-button
           size="mini"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          @click="handleDelete( scope.row)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -93,7 +93,7 @@
 
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button size="small" @click='closeDialog("edit")'>取消</el-button>
+      <el-button size="small" @click='closeDialog()'>取消</el-button>
       <el-button size="small" type="primary"  class="title" @click="saveInfo('editForm')">保存</el-button>
     </div>
   </el-dialog>
@@ -111,6 +111,7 @@ name: "MyFile",
       title: '修改文件信息',
       editFormVisible: false, //控制编辑页面显示与隐藏
       editForm:{
+        id:'',
         name:'',
         type:'',
         description:''
@@ -137,15 +138,50 @@ name: "MyFile",
     }
   },
   methods:{
-    closeDialog(index, row) {
+    handleEdit(value){
+      this.editForm.id = value.id
+      this.editForm.name = value.name
+      this.editForm.type = value.type
+      this.editForm.description = value.description
       this.editFormVisible = true;
     },
-    handleDelete(index, row) {
-      console.log(index, row);
+    closeDialog() {
+      this.editFormVisible = false;
+    },
+    handleDelete(row) {
+      let fomdata =new FormData();
+      fomdata.append('fileId',row.id)
+      this.$http.post("http://localhost:8082/sysfile/delFile",fomdata).then(res=>{
+        if (res.data.code==200){
+          this.$message({
+            showClose: true,
+            message: res.data.msg,
+            type: 'error'
+          });
+          this.getList();
+        }
+      })
     },
     //保存修改
     saveInfo(){
+      let fomdata =new FormData();
+      fomdata.append('fileId',this.editForm.id)
+      fomdata.append('name',this.editForm.name)
+      fomdata.append('type',this.editForm.type)
+      fomdata.append('description',this.editForm.description)
+      this.$http.post("http://localhost:8082/sysfile/uploadFile",fomdata).then(res=>{
+        if (res.data.code==200){
+          this.$message({
+            showClose: true,
+            message: '恭喜你'+res.data.msg,
+            type: 'success'
+          });
+          this.getList();
+          //关闭模态框
+          this.closeDialog()
 
+        }
+      })
     },
     //表单重置
     resetForm(formInline) {
@@ -175,7 +211,6 @@ name: "MyFile",
       fomdata.append('size',this.size)
       fomdata.append('pageNow',this.pageNow)
       this.$http.post("http://localhost:8082/sysfile/list",fomdata).then(res=>{
-        console.log(res.data)
         this.tableData = res.data;
 
       })
