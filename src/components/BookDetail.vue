@@ -236,7 +236,7 @@ name: "BookShare",
     },
     bookShare(){
       let fomdata =new FormData();
-      fomdata.append('borrowUser',this.$cookies.get("cookieUsername"))
+      fomdata.append('borrowUser',this.$cookies.get("cookieUserId"))
       fomdata.append('bookId',this.bookInfo.id)
       fomdata.append('bookUser',this.bookInfo.creatUser)
       fomdata.append('remandTime',this.editForm.borrowTime)
