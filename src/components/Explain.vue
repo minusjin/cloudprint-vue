@@ -3,7 +3,7 @@
     <el-steps :active="active">
       <el-step title="上传文件" icon="el-icon-upload"></el-step>
       <el-step title="打印设置" icon="el-icon-edit"></el-step>
-      <el-step title="打印支付" icon="el-icon-picture"></el-step>
+      <el-step title="打印支付" icon="el-icon-bank-card"></el-step>
     </el-steps>
     <div class="main-one" v-show="oneShow">
       <div class="upload-box">
@@ -25,14 +25,14 @@
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="打印模式" prop="page">
           <el-radio-group v-model="ruleForm.page">
-            <el-radio label="单页打印"></el-radio>
-            <el-radio label="正反打印"></el-radio>
+            <el-radio label="单面"></el-radio>
+            <el-radio label="双面"></el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="打印颜色" prop="pageType">
           <el-radio-group v-model="ruleForm.pageType">
-            <el-radio label="黑白打印"></el-radio>
-            <el-radio label="彩色打印"></el-radio>
+            <el-radio label="黑白"></el-radio>
+            <el-radio label="彩色"></el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="打印页数" prop="printPiece">
@@ -40,8 +40,8 @@
         </el-form-item>
       <el-form-item label="打印尺寸" prop="pageSize">
         <el-radio-group v-model="ruleForm.pageSize">
-          <el-radio label="A3打印"></el-radio>
-          <el-radio label="A4打印"></el-radio>
+          <el-radio label="A4"></el-radio>
+          <el-radio label="A3"></el-radio>
         </el-radio-group>
       </el-form-item>
         <el-form-item label="打印数量" prop="printCount">
@@ -96,7 +96,7 @@
                   width="100">
                 </el-table-column>
                 <el-table-column
-                  prop="cost"
+                  prop="orderPrice"
                   label="费用"
                   width="100">
                 </el-table-column>
@@ -108,6 +108,17 @@
               </el-table-column>
             </el-table-column>
           </el-table>
+          <el-form ref="form" :model="sizeForm" label-width="80px" size="mini" style="margin-top: 20px">
+            <el-form-item label="支付方式">
+              <el-radio-group v-model="sizeForm.payType" size="medium">
+                <el-radio border label="线上支付" ></el-radio>
+                <el-radio border label="店内支付" ></el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item size="large" >
+              <el-button type="primary" @click="onSubmit">立即创建</el-button>
+            </el-form-item>
+          </el-form>
         </template>
       </div>
 
@@ -124,8 +135,8 @@ export default {
   name: "Explain",
   data(){
     return{
-      oneShow:false,
-      twoShow:true,
+      oneShow:true,
+      twoShow:false,
       threeShow:false,
       active:1,
       ruleForm: {
@@ -140,14 +151,19 @@ export default {
       },
       tableData: [{
         orderId: '',
-        printFile: '王小虎',
-        printCount: '上海',
-        page: '普陀区',
-        pageType: '普陀区',
-        pageSize: '普陀区',
-        printRemark: '上海市普陀区金沙江路 1518 弄',
-        cost: ''
+        printFile: '',
+        printCount: '',
+        page: '',
+        pageType: '',
+        pageSize: '',
+        printRemark: '',
+        cost: '',
+        orderPrice:''
       }],
+      sizeForm:{
+        orderId:'',
+        payType: '',
+      },
       rules: {
         page: [
           { required: true, message: '请填写打印模式', trigger: 'blur' }
@@ -162,8 +178,32 @@ export default {
     }
   },
   methods:{
-    //获取评论
+    //确认订单
+    onSubmit() {
+      if(this.sizeForm.payType=="线上支付"){
+        console.log("success")
+      }else {
+        console.log(this.sizeForm.orderId)
+        let fomdata =new FormData();
+        fomdata.append('orderId',this.sizeForm.orderId)
+        fomdata.append('payType',this.sizeForm.payType)
+        this.$http.post("http://localhost:8082/priorder/savePayType",fomdata).then(res=>{
+          if (res.data.code==200){
+            this.$message({
+              showClose: true,
+              message: '打印订单已下单',
+              type: 'success'
+            });
+            //跳转页面
+            this.$router.push("/center/centers")
+          }
+        })
+      }
+    },
+
+    //获取生成订单信息
     getLsit(value){
+      this.sizeForm.orderId=value
       let fomdata =new FormData();
       fomdata.append('orderId',value)
       this.$http.post("http://localhost:8082/priorder/getPrintOrder",fomdata).then(res=>{
@@ -232,7 +272,7 @@ export default {
 
   },
   created() {
-    this.getLsit();
+    //this.getLsit("E20201226112056514");
   }
 }
 </script>

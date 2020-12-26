@@ -8,7 +8,7 @@
       <el-menu-item index="/dataShare"> 共享资料</el-menu-item>
       <el-menu-item index="/bookShow">共享书圈</el-menu-item>
       <el-menu-item index="/center/centers">个人中心</el-menu-item>
-      <el-menu-item index="/explain">使用帮助</el-menu-item>
+      <el-menu-item index="/explain">立即打印</el-menu-item>
       <div class="login-box" >
         <el-button type="text" v-show="this.$store.state.flagLogin"  @click="login">登录</el-button>
         <el-button type="primary" v-show="this.$store.state.flagLogin" icon="el-icon-user" :round="true" @click="register" >注册</el-button>
