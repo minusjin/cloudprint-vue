@@ -6,7 +6,7 @@
       <el-tabs :tab-position="tabPosition" class="tabs-centers" >
         <el-tab-pane label="基本信息"><BasicInfo></BasicInfo></el-tab-pane>
         <el-tab-pane label="我的文件"><MyFile></MyFile></el-tab-pane>
-        <el-tab-pane label="我的打印">角色管理</el-tab-pane>
+        <el-tab-pane label="我的打印"><MyPrint></MyPrint></el-tab-pane>
         <el-tab-pane label="我的共享">
           <el-tabs :tab-position="tab" style="height: 600px;">
             <el-tab-pane label="我的图书"><MyBook></MyBook></el-tab-pane>
@@ -23,9 +23,10 @@ import BasicInfo from "./BasicInfo";
 import MyFile from "./MyFile";
 import MyBook from "./share/MyBook";
 import MyBorrow from "./share/MyBorrow";
+import MyPrint from "./MyPrint";
 export default {
   name: "Centers",
-  components: {MyBorrow, MyBook, MyFile, BasicInfo},
+  components: {MyPrint, MyBorrow, MyBook, MyFile, BasicInfo},
   data() {
     return {
       tabPosition: 'left',

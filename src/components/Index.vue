@@ -72,6 +72,7 @@ export default {
   padding: 10px 150px 0 50px;
 }
 .announce{
+  margin-left: 100px;
   padding: 10px 25px 10px 100px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
   border-radius: 30px
@@ -138,7 +139,7 @@ export default {
 
 }
 .el-carousel__item:nth-child(2n+1) {
-  background-image: url("https://gw.alipayobjects.com/mdn/rms_c16aa5/afts/img/A*U62YRLc0RkUAAAAAAAAAAABkARQnAQ");
+  background-image: url("/static/images/carousel01.png");
   background-size: 100% 100%;
 }
 
@@ -149,6 +150,8 @@ export default {
   font-size: 0;
   overflow: hidden;
 }
-
+.show-box{
+  margin-left: 7%;
+}
 
 </style>
