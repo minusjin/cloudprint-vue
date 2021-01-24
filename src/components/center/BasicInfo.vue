@@ -115,7 +115,7 @@ name: "BasicInfo",
     getList(){
       let fomdata =new FormData();
       fomdata.append('id',this.$cookies.get("cookieUserId"))
-      this.$http.post("http://localhost:8082/sysuser/list",fomdata).then(res=>{
+      this.$http.post("/sysuser/list",fomdata).then(res=>{
         this.tableData = res.data
         this.editForm.Sex = res.data.sex
         this.editForm.Email = res.data.email
@@ -152,7 +152,7 @@ name: "BasicInfo",
       fomdata.append('email',this.editForm.Email)
       fomdata.append('headerPic',this.tableData.headerPic)
       fomdata.append('phone',this.editForm.Phone)
-      this.$http.post("http://localhost:8082/sysuser/saveInfo",fomdata).then(res=>{
+      this.$http.post("/sysuser/saveInfo",fomdata).then(res=>{
         if (res.data.code==200){
           this.closeDialog();
           this.getList();

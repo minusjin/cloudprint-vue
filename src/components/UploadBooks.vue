@@ -136,7 +136,7 @@ name: "UploadBooks",
       fomdata.append('recommend',this.ruleForm.recommend)
       fomdata.append('sharingTime',this.ruleForm.sharingTime)
       fomdata.append('creatUser',this.$cookies.get("cookieUserId"))
-      this.$http.post("http://localhost:8082/sysbook/saveBook",fomdata).then(res=>{
+      this.$http.post("/sysbook/saveBook",fomdata).then(res=>{
         console.log(res.data.msg);
         if (res.data.code==200){
           this.$message({

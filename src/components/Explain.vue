@@ -187,7 +187,7 @@ export default {
         let fomdata =new FormData();
         fomdata.append('orderId',this.sizeForm.orderId)
         fomdata.append('payType',this.sizeForm.payType)
-        this.$http.post("http://localhost:8082/priorder/savePayType",fomdata).then(res=>{
+        this.$http.post("/priorder/savePayType",fomdata).then(res=>{
           if (res.data.code==200){
             this.$message({
               showClose: true,
@@ -206,7 +206,7 @@ export default {
       this.sizeForm.orderId=value
       let fomdata =new FormData();
       fomdata.append('orderId',value)
-      this.$http.post("http://localhost:8082/priorder/getPrintOrder",fomdata).then(res=>{
+      this.$http.post("/priorder/getPrintOrder",fomdata).then(res=>{
         this.tableData = res.data
       })
     },
@@ -247,7 +247,7 @@ export default {
       fomdata.append('printPiece',this.ruleForm.printPiece)
       fomdata.append('printRemark',this.ruleForm.printRemark)
       fomdata.append('customerId',this.$cookies.get("cookieUserId"))
-      this.$http.post("http://localhost:8082/priorder/savePrintOrder",fomdata).then(res=>{
+      this.$http.post("/priorder/savePrintOrder",fomdata).then(res=>{
         if (res.data.code==200){
           this.$message({
             showClose: true,

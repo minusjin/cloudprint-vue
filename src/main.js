@@ -33,6 +33,8 @@ Vue.prototype.$http= axios
 //与后端进行数据交换的时候带上cookie
 axios.defaults.withCredentials = true;
 
+axios.defaults.baseURL = 'http://localhost:8082';//后端开发环境地址
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

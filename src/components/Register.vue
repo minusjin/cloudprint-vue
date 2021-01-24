@@ -119,7 +119,7 @@ export default {
           fomdata.append('password',this.ruleForm.password)
           fomdata.append('email',this.ruleForm.email)
           fomdata.append('phone',this.ruleForm.phone)
-          this.$http.post("http://localhost:8082/sysuser/register",fomdata).then(res=>{
+          this.$http.post("/sysuser/register",fomdata).then(res=>{
             if (res.data.code==200){
               this.$message({
                 showClose: true,

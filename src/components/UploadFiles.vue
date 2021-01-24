@@ -90,7 +90,7 @@ this.ruleForm.cloudUrl = response;
       fomdata.append('fileName',this.ruleForm.fileName)
       fomdata.append('cloudUrl',this.ruleForm.cloudUrl)
       fomdata.append('userId',this.$cookies.get("cookieUsername"))
-  this.$http.post("http://localhost:8082/sysfile/saveFile",fomdata).then(res=>{
+  this.$http.post("/sysfile/saveFile",fomdata).then(res=>{
     console.log(res.data.msg);
     if (res.data.code==200){
       this.$message({

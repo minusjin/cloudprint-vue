@@ -213,7 +213,7 @@ name: "BookShare",
     getBookInfo(){
       let fomdata =new FormData();
       fomdata.append('id',this.id)
-      this.$http.post("http://localhost:8082/sysbook/listDetail",fomdata).then(res=>{
+      this.$http.post("/sysbook/listDetail",fomdata).then(res=>{
         this.bookInfo = res.data;
         this.recommend = parseInt(res.data.recommend);
 
@@ -243,7 +243,7 @@ name: "BookShare",
       fomdata.append('borrowRemark',this.editForm.borrowRemark)
       console.log(this.bookInfo.state)
       if (this.bookInfo.state=="1"){
-        this.$http.post("http://localhost:8082/borrowbook/saveBorrow",fomdata).then(res=>{
+        this.$http.post("/borrowbook/saveBorrow",fomdata).then(res=>{
           if (res.data.code==200){
             this.$message({
               showClose: true,
@@ -259,7 +259,7 @@ name: "BookShare",
     getComment(){
       let fomdata =new FormData();
       fomdata.append('insertId',this.id)
-      this.$http.post("http://localhost:8082/comment/commentList",fomdata).then(res=>{
+      this.$http.post("/comment/commentList",fomdata).then(res=>{
         this.comments = res.data
       })
     },
@@ -284,7 +284,7 @@ name: "BookShare",
       }
       fomdata.append('parentCommentId',value)
       fomdata.append('insertId',this.id)
-      this.$http.post("http://localhost:8082/comment/saveComment",fomdata).then(res=>{
+      this.$http.post("/comment/saveComment",fomdata).then(res=>{
         if (res.data.code==200){
           this.getComment();
           this.showItemId = 0;

@@ -88,7 +88,7 @@ name: "MyBook",
       fomdata.append('size',this.size)
       fomdata.append('pageNow',this.pageNow)
       this.getTotal();
-      this.$http.post("http://localhost:8082/sysbook/list",fomdata).then(res=>{
+      this.$http.post("/sysbook/list",fomdata).then(res=>{
         this.tableData = res.data;
 
       })
@@ -103,7 +103,7 @@ name: "MyBook",
       let fomdata =new FormData();
       fomdata.append('size',this.size)
       fomdata.append('pageNow',this.pageNow)
-      this.$http.post("http://localhost:8082/sysbook/getTotal",fomdata).then(res=>{
+      this.$http.post("/sysbook/getTotal",fomdata).then(res=>{
         this.total = res.data
       })
     },

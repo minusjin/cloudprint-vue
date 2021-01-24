@@ -132,7 +132,7 @@ name: "MyBorrow",
       fomdata.append('size',this.size)
       fomdata.append('pageNow',this.pageNow)
       this.getTotal();
-      this.$http.post("http://localhost:8082/borrowbook/getBorrowBook",fomdata).then(res=>{
+      this.$http.post("/borrowbook/getBorrowBook",fomdata).then(res=>{
         this.tableData = res.data;
 
       })
@@ -147,7 +147,7 @@ name: "MyBorrow",
       let fomdata =new FormData();
       fomdata.append('size',this.size)
       fomdata.append('pageNow',this.pageNow)
-      this.$http.post("http://localhost:8082/borrowbook/getTotal",fomdata).then(res=>{
+      this.$http.post("/borrowbook/getTotal",fomdata).then(res=>{
         this.total = res.data
       })
     },

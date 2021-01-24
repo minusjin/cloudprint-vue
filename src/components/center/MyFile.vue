@@ -151,7 +151,7 @@ name: "MyFile",
     handleDelete(row) {
       let fomdata =new FormData();
       fomdata.append('fileId',row.id)
-      this.$http.post("http://localhost:8082/sysfile/delFile",fomdata).then(res=>{
+      this.$http.post("/sysfile/delFile",fomdata).then(res=>{
         if (res.data.code==200){
           this.$message({
             showClose: true,
@@ -169,7 +169,7 @@ name: "MyFile",
       fomdata.append('name',this.editForm.name)
       fomdata.append('type',this.editForm.type)
       fomdata.append('description',this.editForm.description)
-      this.$http.post("http://localhost:8082/sysfile/uploadFile",fomdata).then(res=>{
+      this.$http.post("/sysfile/uploadFile",fomdata).then(res=>{
         if (res.data.code==200){
           this.$message({
             showClose: true,
@@ -199,7 +199,7 @@ name: "MyFile",
       let fomdata =new FormData();
       fomdata.append('size',this.size)
       fomdata.append('pageNow',this.pageNow)
-      this.$http.post("http://localhost:8082/sysfile/getTotal",fomdata).then(res=>{
+      this.$http.post("/sysfile/getTotal",fomdata).then(res=>{
         this.total = res.data
       })
     },
@@ -210,7 +210,7 @@ name: "MyFile",
       fomdata.append('name',this.formInline.Name)
       fomdata.append('size',this.size)
       fomdata.append('pageNow',this.pageNow)
-      this.$http.post("http://localhost:8082/sysfile/list",fomdata).then(res=>{
+      this.$http.post("/sysfile/list",fomdata).then(res=>{
         this.tableData = res.data;
 
       })

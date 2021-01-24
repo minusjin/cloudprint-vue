@@ -63,7 +63,7 @@ export default {
           let fomdata =new FormData();
           fomdata.append('username',this.ruleForm.username)
           fomdata.append('password',this.ruleForm.password)
-          this.$http.post("http://localhost:8082/sysuser/login",fomdata).then(res=>{
+          this.$http.post("/sysuser/login",fomdata).then(res=>{
             console.log(res.data);
             if (res.data.code==200){
               this.$router.push('/index')

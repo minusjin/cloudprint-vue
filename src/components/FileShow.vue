@@ -101,7 +101,7 @@ export default {
       fomdata.append('type',this.formInline.type)
       fomdata.append('size',this.formInline.size)
       fomdata.append('pageNow',this.formInline.pageNow)
-      this.$http.post("http://localhost:8082/sysfile/list",fomdata).then(res=>{
+      this.$http.post("/sysfile/list",fomdata).then(res=>{
         console.log(res.data)
         this.tableData = res.data;
 
@@ -112,7 +112,7 @@ export default {
       let fomdata =new FormData();
       fomdata.append('size',this.formInline.size)
       fomdata.append('pageNow',this.formInline.pageNow)
-      this.$http.post("http://localhost:8082/sysfile/getTotal",fomdata).then(res=>{
+      this.$http.post("/sysfile/getTotal",fomdata).then(res=>{
         this.total = res.data
       })
     },
