@@ -1,44 +1,48 @@
 <template>
-  <div class="uploadFiles-box">
-    <div class="upload-box">
-      <el-upload :on-success="fileSuccess"
-                 class="upload-demo"
-                 ref="upload"
-                 :auto-upload="false"
-                 drag
-                 action="http://localhost:8082/upload/uploadFile"
-                 multiple>
-        <i class="el-icon-upload"></i>
-        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+  <div class="uploadFiles">
+    <div class="uploadFiles-box">
+      <div class="upload-box">
+        <el-upload :on-success="fileSuccess"
+                   class="upload-demo"
+                   ref="upload"
+                   :auto-upload="false"
+                   drag
+                   action="http://localhost:8082/upload/uploadFile"
+                   multiple>
+          <i class="el-icon-upload"></i>
+          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
 
-      </el-upload>
-      <el-button style="margin:10px 0 0 260px;" size="small" type="primary" icon="el-icon-upload"  @click="submitUpload">上传文件</el-button>
-    </div>
+        </el-upload>
+        <el-button style="margin:10px 0 0 260px;" round size="small" type="primary" icon="el-icon-upload"  @click="submitUpload">上传文件</el-button>
+      </div>
 
-    <div class="file-box">
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="资料名称" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
-        </el-form-item>
-        <el-form-item label="资料类型" prop="type">
-          <el-select v-model="ruleForm.type" placeholder="请选择资料类型">
-            <el-option label="考研" value="考研"></el-option>
-            <el-option label="考试" value="考试"></el-option>
-            <el-option label="求职" value="求职"></el-option>
-            <el-option label="其他" value="其他"></el-option>
-          </el-select>
-        </el-form-item>
+      <div class="file-box">
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+          <el-form-item label="资料名称" prop="name">
+            <el-input v-model="ruleForm.name"></el-input>
+          </el-form-item>
+          <el-form-item label="资料类型" prop="type">
+            <el-select v-model="ruleForm.type" placeholder="请选择资料类型">
+              <el-option label="考研" value="考研"></el-option>
+              <el-option label="考试" value="考试"></el-option>
+              <el-option label="求职" value="求职"></el-option>
+              <el-option label="其他" value="其他"></el-option>
+            </el-select>
+          </el-form-item>
 
-        <el-form-item label="资料描述" prop="description">
-          <el-input type="textarea" v-model="ruleForm.description"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">分享资料</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
-        </el-form-item>
-      </el-form>
+          <el-form-item label="资料描述" prop="description">
+            <el-input type="textarea" v-model="ruleForm.description"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" round @click="submitForm('ruleForm')">分享资料</el-button>
+            <el-button round @click="resetForm('ruleForm')">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
     </div>
   </div>
+
+
 
 </template>
 
@@ -120,6 +124,13 @@ this.ruleForm.cloudUrl = response;
 </script>
 
 <style scoped>
+.uploadFiles{
+  background-color: #F6F6F2;
+  width:100%;
+  height:100%;
+  position:fixed;
+  background-size:100% 100%;
+}
 .uploadFiles-box{
   margin-top: 60px ;
   margin-left: 25%;

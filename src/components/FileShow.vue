@@ -33,7 +33,7 @@
 
         <h4 style="margin-left: 20px">{{item.description}}</h4>
         <div class="button-box" >
-          <el-button type="primary" plain size="small" round>查看详情</el-button>
+<!--          <el-button type="primary" plain size="small" round>查看详情</el-button>-->
           <el-button type="success" plain size="small" @click="download(item.cloudUrl)"  round>下载文件</el-button>
         </div>
 
@@ -93,9 +93,11 @@ export default {
     //表单重置
     resetForm(formInline) {
       this.$refs[formInline].resetFields();
+      this.getList();
     },
     //获取列表
     getList(){
+      this.getTotal();
       let fomdata =new FormData();
       fomdata.append('name',this.formInline.name)
       fomdata.append('type',this.formInline.type)
@@ -128,14 +130,18 @@ export default {
   created() {
     //初始化加载数据
     this.getList();
-    this.getTotal();
+
   }
 }
 </script>
 
 <style scoped>
 .fileShow{
-
+  background-color: #F6F6F2;
+  width:100%;
+  height:100%;
+  position:fixed;
+  background-size:100% 100%;
 }
 .select-box{
   margin: 20px 0 0 20%;
@@ -144,6 +150,7 @@ export default {
   margin: 0 30% 0 20%;
 }
 .table-box{
+  background-color: white;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
   margin: 10px;

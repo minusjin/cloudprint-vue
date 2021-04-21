@@ -142,7 +142,7 @@
       <el-button size="small" type="primary"  class="title" @click="bookShare('editForm')">借阅</el-button>
     </div>
   </el-dialog>
-  <div class="aside">aside</div>
+  <div class="aside"></div><!--左边侧栏未开发-->
 
 
 </div>

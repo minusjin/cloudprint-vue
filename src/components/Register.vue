@@ -1,6 +1,6 @@
 <!--注册页-->
 <template>
-<div>
+<div class="register">
 <div class="register-box">
   <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
     <el-form-item label="用户名" prop="username" required	>
@@ -152,6 +152,13 @@ export default {
 </script>
 
 <style scoped>
+.register{
+  background-color: #F6F6F2;
+  width:100%;
+  height:100%;
+  position:fixed;
+  background-size:100% 100%;
+}
 .register-box{
   padding:10% 30% 0 30%;
 

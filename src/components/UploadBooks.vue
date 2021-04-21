@@ -76,7 +76,7 @@ name: "UploadBooks",
       fileList: [
         {name: '', url: ''}],
       ruleForm: {
-        bookImg: 'http://qi4mkzi4g.hn-bkt.clouddn.com/duck/2020-10-18-2b164c85f8844ce28e1e1f741954f80d.jpg',
+        bookImg: 'http://cloudjin.oss-cn-beijing.aliyuncs.com/s33546871.jpg',
         bookName: '',
         author: '',
         publishing: '',

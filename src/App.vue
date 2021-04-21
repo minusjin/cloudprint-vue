@@ -3,7 +3,7 @@
   <!--导航栏-->
   <div id="app">
     <el-menu router class="el-menu-demo"  mode="horizontal">
-      <a class="logo-box" ><span>云共享</span> </a>
+      <a class="logo-box" ><span>云共享资料库</span> </a>
       <el-menu-item index="/index">首页</el-menu-item>
       <el-menu-item index="/dataShare"> 共享资料</el-menu-item>
       <el-menu-item index="/bookShow">共享书圈</el-menu-item>
@@ -40,7 +40,7 @@ export default {
 
     },
     logout(){
-      this.$http.post("http://localhost:8082/sysuser/logout").then(res=>{
+      this.$http.post("/sysuser/logout").then(res=>{
         this.$message({
           showClose: true,
           message: "账号已经成功退出",

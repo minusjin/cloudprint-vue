@@ -99,13 +99,15 @@ export default {
 
 <style scoped>
 .login-box{
-  width: 100%;
-  height: 640px;
-  background-color: #f5f5f5;
+  background-color: #F6F6F2;
+  width:100%;
+  height:100%;
+  position:fixed;
+  background-size:100% 100%;
 }
 .login-box-main{
-  margin: 100px 300px 10px 400px;
-  padding: 100px 250px 100px 150px;
+  margin: 100px 500px 10px 500px;
+  padding: 50px 45px 10px 0px;
   background-color: white;
 }
 </style>

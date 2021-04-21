@@ -18,26 +18,26 @@
   <div class="service-border"></div>
   <div class="show-box">
     <el-row :gutter="8">
-      <el-col :span="6" style="margin-left: 100px">
+      <el-col :span="6" style="margin-left: 60px">
         <el-card shadow="always" >
           <img src="/static/images/show1.jfif" style="border-radius: 4px;width: 56px;height: 56px;padding-left: 40%" >
           <p class="chosen-title">立即打印</p>
-          <div class="chosen-desc">哈哈是一段与口语课有大幅度服纷纷介绍啊，测试一下了</div>
+          <div class="chosen-desc">点击立即打印文件，实现快速高效打印</div>
         </el-card>
       </el-col>
-      <el-col :span="6" style="margin-left: 100px">
+      <el-col :span="6" style="margin-left: 60px">
         <el-card shadow="always" >
           <img src="/static/images/show2.jfif" style="border-radius: 4px;width: 56px;height: 56px;padding-left: 40%" >
           <p class="chosen-title">资料共享</p>
-          <div class="chosen-desc">哈哈是一段与口语课有大幅度服纷纷介绍啊，测试一下了</div>
+          <div class="chosen-desc">共享学习资料，让学习变的更轻松</div>
 
         </el-card>
       </el-col>
-      <el-col :span="6" style="margin-left: 100px">
+      <el-col :span="6" style="margin-left: 60px">
         <el-card shadow="always" >
           <img src="/static/images/show3.jfif" style="border-radius: 4px;width: 56px;height: 56px;padding-left: 40%" >
           <p class="chosen-title">图书共享</p>
-          <div class="chosen-desc">哈哈是一段与口语课有大幅度服纷纷介绍啊，测试一下了</div>
+          <div class="chosen-desc">参与图书共享，让读书变的更简单</div>
 
         </el-card>
       </el-col>
@@ -122,8 +122,9 @@ export default {
   letter-spacing: 0;
   line-height: 24px;
   margin-top: 5px;
+  padding-right: 15px;
   height: 48px;
-  width: 260px;
+  width: 240px;
   overflow: hidden;
 }
 .el-carousel__item{
